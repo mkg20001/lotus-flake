@@ -17,7 +17,10 @@ And use the module
   ...
   modules = [
     lotus.nixosModules.lotus
-    ({ ... }: { services.lotus.enable = true; })
+    ({ ... }: {
+      nixpkgs.overlays = [ lotus.overlay ];
+      services.lotus.enable = true;
+    })
   ];
   ...
 ```
