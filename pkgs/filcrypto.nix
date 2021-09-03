@@ -5,6 +5,7 @@
 , openssl
 , hwloc
 , pkg-config
+, lib
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -15,10 +16,11 @@ rustPlatform.buildRustPackage rec {
 
   src = "${lotusSrc}/extern/filecoin-ffi/rust";
 
-  cargoSha256 = "sha256-QWbHgp065EUeBe8dcQlK4b99zvN4TmORv7Nc7BC0Uqg=";
+  cargoSha256 = "sha256-JSX+o4wlIJVvK23HTdFu7ewCs0TAX45zBjTiS0p0IHY=";
 
   nativeBuildInputs = [
-    pkg-config openssl.dev
+    pkg-config
+    openssl.dev
   ];
 
   preBuild = ''
@@ -52,6 +54,9 @@ rustPlatform.buildRustPackage rec {
   '';
 
   buildInputs = [
-    opencl-headers opencl-icd openssl.out hwloc
+    opencl-headers
+    opencl-icd
+    openssl.out
+    hwloc
   ];
 }
