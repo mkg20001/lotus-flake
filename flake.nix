@@ -8,35 +8,35 @@
       forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
     in
 
-      {
-        overlay = import ./overlay.nix;
+    {
+      overlay = import ./overlay.nix;
 
-        defaultPackage = forAllSystems (
-          system: (
-            import nixpkgs {
+      defaultPackage = forAllSystems (
+        system: (
+          import nixpkgs {
+            inherit system;
+            overlays = [ self.overlay ];
+          }
+        ).lotus
+      );
+
+      packages = forAllSystems (
+        system: (
+          let
+            pkgs = import nixpkgs {
               inherit system;
               overlays = [ self.overlay ];
-            }
-          ).lotus
-        );
+            };
+          in
+          {
+            lotus = pkgs.lotus;
+            filcrypto = pkgs.filcrypto;
+            filecoin-ffi = pkgs.filecoin-ffi;
+          }
+        )
+      );
 
-        packages = forAllSystems (
-          system: (
-            let
-              pkgs = import nixpkgs {
-                inherit system;
-                overlays = [ self.overlay ];
-              };
-            in
-              {
-                lotus = pkgs.lotus;
-                filcrypto = pkgs.filcrypto;
-                filecoin-ffi = pkgs.filecoin-ffi;
-              }
-          )
-        );
+      nixosModules.lotus = import ./module.nix;
 
-        nixosModules.lotus = import ./module.nix;
-
-      };
+    };
 }
