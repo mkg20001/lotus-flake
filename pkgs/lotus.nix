@@ -5,6 +5,7 @@
 , go-rice
 , filecoin-ffi
 , filcrypto
+, lib
 }:
 let
   ipsnsecp = fetchFromGitHub {
@@ -32,7 +33,7 @@ buildGoModule {
 
   doCheck = false;
 
-  vendorSha256 = "sha256-WVPHhd18ZPReCwg5e4HJXz9ArOg4uKeGKuFce5U9fog=";
+  vendorSha256 = "sha256-et+ijsPcAEzo/Cr6bP1hz/GLnRNmJZb4uBeyHK9ySdg=";
 
   subPackages = [
     "cmd/lotus*"
@@ -62,9 +63,7 @@ buildGoModule {
   postInstall = ''
     mkdir -p $out/share/bash-completion/completions $out/share/zsh/site-functions/
     install -C ./scripts/bash-completion/lotus $out/share/bash-completion/completions/lotus
-    install -C ./scripts/bash-completion/lotus-miner $out/share/bash-completion/completions/lotus-miner
     install -C ./scripts/zsh-completion/lotus $out/share/zsh/site-functions/_lotus
-    install -C ./scripts/zsh-completion/lotus-miner $out/share/zsh/site-functions/_lotus-miner
   '';
 
   postFixup = ''

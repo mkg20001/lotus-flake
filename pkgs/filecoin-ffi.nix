@@ -2,6 +2,7 @@
 , lotusSrc
 , filcrypto
 , pkg-config
+, lib
 }:
 
 buildGoModule {
@@ -12,7 +13,7 @@ buildGoModule {
 
   src = "${lotusSrc}/extern/filecoin-ffi";
 
-  vendorSha256 = "sha256-09I6RF+jWLNyfiNEci0C8+kq647kG7uiwk3iXx3A8Jc=";
+  vendorSha256 = "sha256-enaKv8iCKnM5c3JBjL2Fao69dZIcsNxyQTYRluvq5XI=";
 
   preBuild = ''
     ls
